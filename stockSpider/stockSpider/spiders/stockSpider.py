@@ -7,7 +7,7 @@ from stockSpider.items import StockspiderItem
 class StockSpider(scrapy.Spider):
     name = "stockSpider"
     allow_domain = "http://data.10jqka.com.cn/funds/hyzjl/"
-    start_urls = ["http://data.10jqka.com.cn/funds/hyzjl/#refCountId=data_55f13c2c_254"]
+    start_urls = ["http://data.10jqka.com.cn/funds/hyzjl/field/je/order/desc/ajax/1/"]
     next_page = None
     def parse(self,response):
         localtime = time.localtime()
@@ -28,7 +28,7 @@ class StockSpider(scrapy.Spider):
             item['cur_price'] = sel.xpath("./td[11]/text()").extract()[0]
             yield item
         if self.next_page == None:
-            self.next_page = "http://data.10jqka.com.cn/funds/hyzjl/field/tradezdf/order/desc/page/2/ajax/1/"
+            self.next_page = "http://data.10jqka.com.cn/funds/hyzjl/field/je/order/desc/page/2/ajax/1/"
             yield Request(self.next_page, callback=self.parse)
 
 
